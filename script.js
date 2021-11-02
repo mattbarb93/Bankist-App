@@ -80,6 +80,22 @@ const displayMovements = function (movements) {
 };
 displayMovements(account1.movements);
 
+//Gets user's name, transforms into an username made of the first letter of the user's name combined.
+const createUsernames = function (accs) {
+  accs.forEach(function (acc) {
+    acc.username = acc.owner
+      .toLowerCase()
+      .split(' ')
+      .map(name => {
+        return name[0];
+      })
+      .join('');
+  });
+};
+
+createUsernames(accounts);
+console.log(accounts);
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
