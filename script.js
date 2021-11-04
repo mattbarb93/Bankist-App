@@ -80,9 +80,41 @@ const displayMovements = function (movements) {
 };
 displayMovements(account1.movements);
 
-//Gets user's name, transforms into an username made of the first letter of the user's name combined.
+const calcPrintBalance = function (movements) {
+  const balance = movements.reduce(function (acc, move) {
+    return acc + move;
+  }, 0);
+  labelBalance.textContent = `${balance} EUR`;
+};
+calcPrintBalance(account1.movements);
+
+const calcDisplaySummary = function (movements) {
+  const incomes = movements
+    .filter(move => move > 0)
+    .reduce((acc, move) => acc + move, 0);
+  labelSumIn.textContent = `$${incomes}`;
+
+  const outcomes = movements
+    .filter(move => move < 0)
+    .reduce((acc, move) => acc + move, 0);
+  labelSumOut.textContent = `$${Math.abs(outcomes)}`;
+
+  const interest = movements
+    .filter(move => move > 0)
+    .map(deposit => (deposit * 1.2) / 100)
+    .filter((int, i, arr) => {
+      console.log(arr);
+      return int >= 1;
+    })
+    .reduce((acc, int) => acc + int, 0);
+  labelSumInterest.textContent = `$${Math.abs(interest)}`;
+};
+calcDisplaySummary(account1.movements);
+
+//Creates usernames for every single user in the users array
 const createUsernames = function (accs) {
   accs.forEach(function (acc) {
+    //Gets user's name, transforms into an username made of the first letter of the user's name combined.
     acc.username = acc.owner
       .toLowerCase()
       .split(' ')
