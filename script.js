@@ -200,10 +200,26 @@ const currencies = new Map([
 
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
+//LOAN FUNCTIONALITY
+btnLoan.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  const amount = Number(inputLoanAmount.value);
+
+  if (amount > 0 && currentAccount.movements.some(mov => mov >= amount * 0.1)) {
+    //Add movement
+    currentAccount.movements.push(amount);
+  }
+
+  //Update UI
+  updateUI(currentAccount);
+
+  inputLoanAmount.value = '';
+});
+
 //FIND INDEX METHOD
 
 //Use splice to delete something, but first we need to use find index to delete
-
 btnClose.addEventListener('click', function (e) {
   e.preventDefault();
 
@@ -226,4 +242,25 @@ btnClose.addEventListener('click', function (e) {
   inputLoginPin.blur(); //Field loses focus
 });
 
+//SOME AND EVERY METHODS
+
+//INCLUDES: Returns true or false to see whether the value exists or not. Only checks for equality
+
+console.log(movements);
+console.log(movements.includes(-130));
+
+//SOME: You can specify a condition. Basically more powerful than includes, but less simple
+
+const anyDeposits = movements.some(mov => mov > 0);
+console.log(anyDeposits);
+
+// EVERY
+
+//Only returns true if every element passes the test in the callback function, only then the EVERY returns true
+
+console.log(movements.every(mov => mov > 0)); //False
+console.log(account4.movements.every(mov => mov > 0)); //True
+
+const deposit = mov => mov > 0;
+console.log(movements.some(deposit));
 /////////////////////////////////////////////////
