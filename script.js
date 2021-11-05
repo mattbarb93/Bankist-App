@@ -78,7 +78,6 @@ const displayMovements = function (movements) {
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
 };
-displayMovements(account1.movements);
 
 const calcPrintBalance = function (movements) {
   const balance = movements.reduce(function (acc, move) {
@@ -86,22 +85,21 @@ const calcPrintBalance = function (movements) {
   }, 0);
   labelBalance.textContent = `${balance} EUR`;
 };
-calcPrintBalance(account1.movements);
 
-const calcDisplaySummary = function (movements) {
-  const incomes = movements
+const calcDisplaySummary = function (account) {
+  const incomes = account.movements
     .filter(move => move > 0)
     .reduce((acc, move) => acc + move, 0);
   labelSumIn.textContent = `$${incomes}`;
 
-  const outcomes = movements
+  const outcomes = account.movements
     .filter(move => move < 0)
     .reduce((acc, move) => acc + move, 0);
   labelSumOut.textContent = `$${Math.abs(outcomes)}`;
 
-  const interest = movements
+  const interest = account.movements
     .filter(move => move > 0)
-    .map(deposit => (deposit * 1.2) / 100)
+    .map(deposit => (deposit * account.interestRate) / 100)
     .filter((int, i, arr) => {
       console.log(arr);
       return int >= 1;
@@ -109,7 +107,6 @@ const calcDisplaySummary = function (movements) {
     .reduce((acc, int) => acc + int, 0);
   labelSumInterest.textContent = `$${Math.abs(interest)}`;
 };
-calcDisplaySummary(account1.movements);
 
 //Creates usernames for every single user in the users array
 const createUsernames = function (accs) {
@@ -127,6 +124,39 @@ const createUsernames = function (accs) {
 
 createUsernames(accounts);
 console.log(accounts);
+
+//Event handler
+let currentAccount;
+
+btnLogin.addEventListener('click', function (e) {
+  e.preventDefault(); //Prevent form from submitting
+  console.log('LOGIN');
+
+  currentAccount = accounts.find(
+    acc => acc.username === inputLoginUsername.value
+  );
+
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    //Display UI and Message
+
+    labelWelcome.textContent = `Welcome back ${
+      currentAccount.owner.split(' ')[0]
+    }`;
+    containerApp.style.opacity = 100;
+
+    //Clear the input fields
+    inputLoginUsername.value = inputLoginPin.value = '';
+    inputLoginPin.blur(); //Field loses focus
+
+    //Display movements
+    displayMovements(currentAccount.movements);
+    //Display balance
+    calcPrintBalance(currentAccount.movements);
+
+    //Display summary
+    calcDisplaySummary(currentAccount);
+  }
+});
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
