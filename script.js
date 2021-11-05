@@ -139,13 +139,13 @@ let currentAccount;
 
 btnLogin.addEventListener('click', function (e) {
   e.preventDefault(); //Prevent form from submitting
-  console.log('LOGIN');
 
   currentAccount = accounts.find(
     acc => acc.username === inputLoginUsername.value
   );
 
   if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    console.log('LOGIN');
     //Display UI and Message
 
     labelWelcome.textContent = `Welcome back ${
@@ -163,12 +163,15 @@ btnLogin.addEventListener('click', function (e) {
 
 btnTransfer.addEventListener('click', function (e) {
   e.preventDefault();
+
+  //Store the amount that will be transfered in a variable
   const amount = Number(inputTransferAmount.value);
   //Looking for the account that will get the money
   const receiverAccount = accounts.find(
     acc => acc.username === inputTransferTo.value
   );
   console.log(amount, receiverAccount);
+  //Clean the input fields after submitting
   inputTransferAmount.value = inputTransferTo.value = '';
 
   if (
@@ -196,5 +199,31 @@ const currencies = new Map([
 ]);
 
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+//FIND INDEX METHOD
+
+//Use splice to delete something, but first we need to use find index to delete
+
+btnClose.addEventListener('click', function (e) {
+  e.preventDefault();
+
+  if (
+    inputCloseUsername.value === currentAccount.username &&
+    Number(inputClosePin.value) === currentAccount.pin
+  ) {
+    const index = accounts.findIndex(
+      acc => acc.username === currentAccount.username
+    );
+    console.log(index);
+
+    //DELETE ACCOUNT
+    accounts.splice(index, 1);
+
+    //HIDE UI
+    containerApp.style.opacity = 0;
+  }
+  inputCloseUsername.value = inputClosePin.value = '';
+  inputLoginPin.blur(); //Field loses focus
+});
 
 /////////////////////////////////////////////////
