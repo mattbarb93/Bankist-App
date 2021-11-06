@@ -263,4 +263,32 @@ console.log(account4.movements.every(mov => mov > 0)); //True
 
 const deposit = mov => mov > 0;
 console.log(movements.some(deposit));
+
+//FLAT: Removes nested arrays and makes one single array. Only goes one level deep. If you add a parameter to the method call, it goes deeper
+
+const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+console.log(arr.flat());
+
+const arrDeep = [[[1, 2], 3], [4, 5, 6], 7, 8];
+console.log(arrDeep.flat()); //Will return [Array(2), 3, 4, 5, 6, 7, 8]
+console.log(arrDeep.flat(2)); //Will return [1,2, 3, 4, 5, 6, 7, 8]
+
+const accountMovements = accounts.map(acc => acc.movements);
+console.log(accountMovements);
+const allMovements = accountMovements.flat();
+console.log(allMovements);
+
+const overallBalance = accounts
+  .map(acc => acc.movements)
+  .flat()
+  .reduce((acc, move) => acc + move, 0);
+console.log(overallBalance);
+
+//FLAPMAP Method: Combines a flat and a map method, better for performance
+//Flatmap only goes one level deep tho, keep it in mind.
+
+const overallBalance2 = accounts
+  .flatMap(acc => acc.movements)
+  .reduce((acc, move) => acc + move, 0);
+console.log(overallBalance);
 /////////////////////////////////////////////////
