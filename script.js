@@ -252,84 +252,125 @@ btnClose.addEventListener('click', function (e) {
   inputLoginPin.blur(); //Field loses focus
 });
 
-//SOME AND EVERY METHODS
+// //SOME AND EVERY METHODS
 
-//INCLUDES: Returns true or false to see whether the value exists or not. Only checks for equality
+// //INCLUDES: Returns true or false to see whether the value exists or not. Only checks for equality
 
-console.log(movements);
-console.log(movements.includes(-130));
-
-//SOME: You can specify a condition. Basically more powerful than includes, but less simple
-
-const anyDeposits = movements.some(mov => mov > 0);
-console.log(anyDeposits);
-
-// EVERY
-
-//Only returns true if every element passes the test in the callback function, only then the EVERY returns true
-
-console.log(movements.every(mov => mov > 0)); //False
-console.log(account4.movements.every(mov => mov > 0)); //True
-
-const deposit = mov => mov > 0;
-console.log(movements.some(deposit));
-
-//FLAT: Removes nested arrays and makes one single array. Only goes one level deep. If you add a parameter to the method call, it goes deeper
-
-const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
-console.log(arr.flat());
-
-const arrDeep = [[[1, 2], 3], [4, 5, 6], 7, 8];
-console.log(arrDeep.flat()); //Will return [Array(2), 3, 4, 5, 6, 7, 8]
-console.log(arrDeep.flat(2)); //Will return [1,2, 3, 4, 5, 6, 7, 8]
-
-const accountMovements = accounts.map(acc => acc.movements);
-console.log(accountMovements);
-const allMovements = accountMovements.flat();
-console.log(allMovements);
-
-const overallBalance = accounts
-  .map(acc => acc.movements)
-  .flat()
-  .reduce((acc, move) => acc + move, 0);
-console.log(overallBalance);
-
-//FLAPMAP Method: Combines a flat and a map method, better for performance
-//Flatmap only goes one level deep tho, keep it in mind.
-
-const overallBalance2 = accounts
-  .flatMap(acc => acc.movements)
-  .reduce((acc, move) => acc + move, 0);
-console.log(overallBalance);
-/////////////////////////////////////////////////
-
-//SORTING ARRAYS
-
-//Strings
-const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
-console.log(owners.sort());
-console.log(owners);
-
-//Numbers
-console.log(movements);
-// console.log(movements.sort()); //Sorted alphabetically. Doesnt work
-
-// return < 0, A, B //Switch the order
-// return > 0, B, A //Keep order
-
-//ASCENDING ORDER
-// movements.sort((a, b) => {
-//   if (a > b) return 1;
-//   if (b > a) return -1;
-// });
 // console.log(movements);
-movements.sort((a, b) => a - b);
-console.log(movements);
+// console.log(movements.includes(-130));
 
-//DESCENDING ORDER
-// movements.sort((a, b) => {
-//   if (a > b) return -1;
-//   if (b > a) return 1;
-// });
-movements.sort((a, b) => b - a);
-console.log(movements);
+// //SOME: You can specify a condition. Basically more powerful than includes, but less simple
+
+// const anyDeposits = movements.some(mov => mov > 0);
+// console.log(anyDeposits);
+
+// // EVERY
+
+// //Only returns true if every element passes the test in the callback function, only then the EVERY returns true
+
+// console.log(movements.every(mov => mov > 0)); //False
+// console.log(account4.movements.every(mov => mov > 0)); //True
+
+// const deposit = mov => mov > 0;
+// console.log(movements.some(deposit));
+
+// //FLAT: Removes nested arrays and makes one single array. Only goes one level deep. If you add a parameter to the method call, it goes deeper
+
+// const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+// console.log(arr.flat());
+
+// const arrDeep = [[[1, 2], 3], [4, 5, 6], 7, 8];
+// console.log(arrDeep.flat()); //Will return [Array(2), 3, 4, 5, 6, 7, 8]
+// console.log(arrDeep.flat(2)); //Will return [1,2, 3, 4, 5, 6, 7, 8]
+
+// const accountMovements = accounts.map(acc => acc.movements);
+// console.log(accountMovements);
+// const allMovements = accountMovements.flat();
+// console.log(allMovements);
+
+// const overallBalance = accounts
+//   .map(acc => acc.movements)
+//   .flat()
+//   .reduce((acc, move) => acc + move, 0);
+// console.log(overallBalance);
+
+// //FLAPMAP Method: Combines a flat and a map method, better for performance
+// //Flatmap only goes one level deep tho, keep it in mind.
+
+// const overallBalance2 = accounts
+//   .flatMap(acc => acc.movements)
+//   .reduce((acc, move) => acc + move, 0);
+// console.log(overallBalance);
+// /////////////////////////////////////////////////
+
+// //SORTING ARRAYS
+
+// //Strings
+// const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
+// console.log(owners.sort());
+// console.log(owners);
+
+// //Numbers
+// console.log(movements);
+// // console.log(movements.sort()); //Sorted alphabetically. Doesnt work
+
+// // return < 0, A, B //Switch the order
+// // return > 0, B, A //Keep order
+
+// //ASCENDING ORDER
+// // movements.sort((a, b) => {
+// //   if (a > b) return 1;
+// //   if (b > a) return -1;
+// // });
+// // console.log(movements);
+// movements.sort((a, b) => a - b);
+// console.log(movements);
+
+// //DESCENDING ORDER
+// // movements.sort((a, b) => {
+// //   if (a > b) return -1;
+// //   if (b > a) return 1;
+// // });
+// movements.sort((a, b) => b - a);
+// console.log(movements);
+
+const arr = [1, 2, 3, 4, 5, 6, 7];
+console.log(new Array(1, 2, 3, 4, 5, 6, 7));
+
+const x = new Array(7); //Empty array with 7 blanks
+console.log(x);
+
+console.log(x.map(() => 5)); //Nothing comes up
+
+//FILL METHOD: Fills the whole array with one value
+x.fill(1, 3); //Starting at index 3, every element will be "1"
+console.log(x);
+
+arr.fill(23, 4, 6); //Starting at position 4, and ending at position 6, all elements will be equal to "23"
+console.log(arr);
+
+//ARRAY.FROM FUNCTION
+
+const y = Array.from({ length: 7 }, () => 1);
+console.log(y);
+
+const z = Array.from({ length: 7 }, (cur, i) => i + 1); //Will return 1 to 7
+console.log(z);
+
+//Create an array that generates 100 Random Dice Rolls
+const diceRolls = Array.from(
+  { length: 100 },
+  () => Math.round(Math.random() * 5) + 1
+);
+console.log(diceRolls);
+
+//Use array.from to create an array from the result of querySelectorAll
+//Include mapping function to convert the initial array to replace the $ sign with nothing, and then make it into numbers
+labelBalance.addEventListener('click', function () {
+  const movementsUI = Array.from(
+    document.querySelectorAll('.movements__value'),
+    el => Number(el.textContent.replace('$', ''))
+  );
+
+  console.log(movementsUI);
+});
